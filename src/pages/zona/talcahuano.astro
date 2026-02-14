@@ -1,0 +1,91 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import Topbar from '@/components/Topbar.astro';
+import Navbar from '@/components/Navbar.astro';
+import Hero from '@/components/Hero.astro';
+import PriceTable from '@/components/PriceTable.astro';
+import FAQ from '@/components/FAQ.astro';
+import Footer from '@/components/Footer.astro';
+import StickyWhatsApp from '@/components/StickyWhatsApp.astro';
+
+const waUrl = `https://wa.me/56933301114?text=${encodeURIComponent('Hola Exportandes, quiero vender material en Talcahuano.')}`;
+
+const localSchema = {
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  "name": "Exportandes - Venta de Chatarra en Talcahuano",
+  "description": "Compra de chatarra de cobre, aluminio y metales en Talcahuano. Zona portuaria e industrial. Retiro desde 100 kg.",
+  "image": "/images/og-default.jpg",
+  "address": { "@type": "PostalAddress", "addressLocality": "Talcahuano", "addressRegion": "Biobio", "addressCountry": "CL" },
+  "telephone": "+56933301114",
+  "url": "https://exportandes.cl/zona/talcahuano",
+  "openingHours": "Mo-Fr 08:00-18:00",
+  "areaServed": { "@type": "City", "name": "Talcahuano", "containedInPlace": { "@type": "AdministrativeArea", "name": "Region del Biobio" } }
+};
+
+const localFaq = [
+  { question: 'Cual es el minimo de retiro en Talcahuano?', answer: 'En Talcahuano retiramos desde 100 kg. La zona portuaria e industrial genera volumenes importantes de chatarra; con ese minimo podemos cubrir costos de traslado y ofrecer el mejor precio del mercado.' },
+  { question: 'Atienden empresas del puerto y astilleros?', answer: 'Si. Trabajamos con empresas, astilleros, talleres navales y recicladores de la zona portuaria. Coordinamos retiros programados y horarios flexibles segun necesidad. Escribenos por WhatsApp con el volumen aproximado.' },
+  { question: 'Cubren Caleta Lenga, San Vicente y sectores costeros?', answer: 'Si. Cubrimos todo Talcahuano: puerto, centro, base naval, San Vicente, Caleta Lenga, Huachipato y sectores residenciales. El retiro desde 100 kg aplica en toda la comuna.' },
+];
+---
+
+<Layout
+  title="Vender Chatarra en Talcahuano | Retiro desde 100 kg | Exportandes"
+  description="Vende chatarra de cobre, aluminio y metales en Talcahuano. Zona portuaria e industrial. Retiro gratuito desde 100 kg. Pago inmediato."
+  keywords="vender chatarra Talcahuano, compra metales puerto Concepcion, retiro chatarra Huachipato, precio cobre Talcahuano"
+  schema={localSchema}
+  canonical="https://exportandes.cl/zona/talcahuano"
+>
+  <Topbar />
+  <Navbar />
+
+  <main id="main-content">
+    <Hero
+      title={`Vender Chatarra en <span class="text-accent">Talcahuano</span>`}
+      subtitle="Zona portuaria e industrial. Retiro desde 100 kg en astilleros, talleres y empresas. Pago al momento, coordinacion rapida."
+      small
+      cta={{ label: 'Vender ahora', href: waUrl }}
+    />
+
+    <!-- Local info section -->
+    <section class="section bg-white">
+      <div class="container-x max-w-4xl">
+        <p class="label">Zona portuaria e industrial</p>
+        <h2 class="text-2xl lg:text-3xl font-display font-bold text-base mb-6">Talcahuano: alto flujo de metales</h2>
+        <div class="prose prose-base text-base-light space-y-4">
+          <p>Talcahuano concentra actividad portuaria, naval e industrial que genera grandes volumenes de chatarra recuperable. Para esta comuna aplicamos <strong class="text-base">retiro desde 100 kg</strong>, uno de los minimos mas bajos fuera de Concepcion centro.</p>
+          <p>Trabajamos con empresas del puerto, astilleros, talleres de reparacion naval y recicladores de la zona. Cubrimos Huachipato, San Vicente, Caleta Lenga y sectores residenciales. Coordinamos fechas y horarios segun tu disponibilidad.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- PriceTable section -->
+    <section class="section bg-neutral">
+      <div class="container-x">
+        <p class="label">Precios vigentes</p>
+        <h2 class="text-2xl lg:text-3xl font-display font-bold text-base mb-8">Cotizacion por material</h2>
+        <PriceTable />
+        <p class="mt-4 text-xs text-base-light">* Precios referenciales. Validos para Talcahuano y zona portuaria.</p>
+      </div>
+    </section>
+
+    <!-- CTA to vender -->
+    <section class="section bg-white">
+      <div class="container-x">
+        <div class="card max-w-2xl mx-auto text-center">
+          <h2 class="text-xl font-display font-bold text-base mb-3">Vende en Talcahuano desde 100 kg</h2>
+          <p class="text-base-light text-sm mb-6">Escribenos indicando tu material y volumen. Coordinamos retiro en la zona portuaria e industrial.</p>
+          <a href={waUrl} target="_blank" rel="noopener" class="btn-whatsapp">
+            Vender material en Talcahuano
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <FAQ items={localFaq} />
+  </main>
+
+  <Footer />
+  <StickyWhatsApp />
+</Layout>

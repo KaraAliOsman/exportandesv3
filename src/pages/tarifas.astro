@@ -1,0 +1,86 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import Topbar from '@/components/Topbar.astro';
+import Navbar from '@/components/Navbar.astro';
+import Hero from '@/components/Hero.astro';
+import PriceTable from '@/components/PriceTable.astro';
+import FAQ from '@/components/FAQ.astro';
+import Footer from '@/components/Footer.astro';
+import StickyWhatsApp from '@/components/StickyWhatsApp.astro';
+
+const materialLinks = [
+  { href: '/materiales/aluminio', name: 'Aluminio', desc: 'Perfil limpio, duro, latas' },
+  { href: '/materiales/cobre', name: 'Cobre', desc: 'Cable pelado, mixto, radiadores' },
+  { href: '/materiales/laton', name: 'Laton y Bronce', desc: 'Griferia, valvulas, piezas' },
+  { href: '/materiales/acero', name: 'Acero Inoxidable', desc: 'Grado 304/316, sin contaminar' },
+];
+
+const faq = [
+  { question: 'Con que frecuencia actualizan los precios?', answer: 'Diariamente, segun la cotizacion internacional de la London Metal Exchange (LME). Los precios publicados son referenciales; la cotizacion final depende del volumen y estado del material.' },
+  { question: 'Puedo mejorar el precio que recibo?', answer: 'Si. Material limpio, separado por tipo y cortado a medida siempre paga mas. Te recomendamos quitar plasticos, fierro y contaminantes antes de vender.' },
+  { question: 'Compran material en cualquier cantidad?', answer: 'Desde 1 kg sin minimo. Para +1 tonelada negociamos precios premium y coordinamos logistica especial.' },
+];
+---
+
+<Layout
+  title="Tarifas y Materiales -- Precios de Compra de Chatarra 2026 | Exportandes"
+  description="Lista de precios actualizada de compra de cobre, aluminio, laton y acero en Concepcion. Precios por kilo. Vende al mejor precio del mercado chileno."
+  keywords="precio kilo cobre Chile 2026, precio aluminio hoy, lista precios chatarra, precio laton Chile, tarifas compra metales"
+>
+  <Topbar />
+  <Navbar />
+
+  <main id="main-content">
+    <Hero
+      title='Tarifas y <span class="text-accent">Materiales</span>'
+      subtitle="Precios de compra por kilogramo en pesos chilenos. Actualizados diariamente segun mercado internacional. Validos para la Region del Biobio."
+      small
+    />
+
+    <!-- Main price table -->
+    <section class="section bg-white">
+      <div class="container-x">
+        <PriceTable />
+        <p class="mt-4 text-xs text-base-light">* Precios referenciales. Varian segun volumen, calidad y condiciones de mercado. Ultima actualizacion: Febrero 2026.</p>
+      </div>
+    </section>
+
+    <!-- Material categories -->
+    <section class="section bg-neutral">
+      <div class="container-x">
+        <p class="label">Categorias</p>
+        <h2 class="text-3xl lg:text-4xl mb-8">Fichas por material</h2>
+        <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
+          {materialLinks.map((m) => (
+            <a href={m.href} class="card group flex flex-col">
+              <h3 class="font-display font-bold text-base group-hover:text-accent transition-colors">{m.name}</h3>
+              <p class="text-sm text-base-light mt-1 flex-1">{m.desc}</p>
+              <span class="mt-4 text-xs font-display font-semibold text-accent flex items-center gap-1">
+                Ver ficha
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+              </span>
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- Volume CTA -->
+    <section class="section bg-base text-white">
+      <div class="container-x flex flex-col lg:flex-row items-center gap-8 lg:gap-12">
+        <div class="flex-1">
+          <h2 class="text-3xl font-display font-bold mb-3">Mas de 1 tonelada?</h2>
+          <p class="text-white/60 leading-relaxed">Para volumenes industriales ofrecemos precios premium negociados directamente. Retiro con camion propio en toda la region.</p>
+        </div>
+        <a href="https://wa.me/56933301114?text=Hola%20Exportandes%2C%20tengo%20un%20volumen%20grande%20para%20vender.%20Favor%20cotizar." target="_blank" rel="noopener" class="btn-whatsapp shrink-0">
+          Cotizacion industrial
+        </a>
+      </div>
+    </section>
+
+    <FAQ items={faq} />
+  </main>
+
+  <Footer />
+  <StickyWhatsApp />
+</Layout>

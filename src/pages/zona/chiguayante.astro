@@ -1,0 +1,91 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import Topbar from '@/components/Topbar.astro';
+import Navbar from '@/components/Navbar.astro';
+import Hero from '@/components/Hero.astro';
+import PriceTable from '@/components/PriceTable.astro';
+import FAQ from '@/components/FAQ.astro';
+import Footer from '@/components/Footer.astro';
+import StickyWhatsApp from '@/components/StickyWhatsApp.astro';
+
+const waUrl = `https://wa.me/56933301114?text=${encodeURIComponent('Hola Exportandes, quiero vender material en Chiguayante.')}`;
+
+const localSchema = {
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  "name": "Exportandes - Venta de Chatarra en Chiguayante",
+  "description": "Compra de chatarra de cobre, aluminio y metales en Chiguayante. Retiro desde 200 kg con coordinacion en el dia.",
+  "image": "/images/og-default.jpg",
+  "address": { "@type": "PostalAddress", "addressLocality": "Chiguayante", "addressRegion": "Biobio", "addressCountry": "CL" },
+  "telephone": "+56933301114",
+  "url": "https://exportandes.cl/zona/chiguayante",
+  "openingHours": "Mo-Fr 08:00-18:00",
+  "areaServed": { "@type": "City", "name": "Chiguayante", "containedInPlace": { "@type": "AdministrativeArea", "name": "Region del Biobio" } }
+};
+
+const localFaq = [
+  { question: 'Pueden retirar el mismo dia en Chiguayante?', answer: 'Si. En Chiguayante priorizamos la coordinacion en el dia. Escribenos temprano por WhatsApp con tu material y volumen; si la ruta lo permite, programamos el retiro para esa misma jornada. Retiro desde 200 kg.' },
+  { question: 'Cual es el minimo para retiro en Chiguayante?', answer: 'El minimo es 200 kg. Chiguayante esta cerca de Concepcion, lo que nos permite incluirla en rutas diarias. Si tienes menos cantidad, puedes llevar el material a nuestra bodega en Av. Pedro de Valdivia 733 sin minimo.' },
+  { question: 'Cubren el centro de Chiguayante y sectores rurales?', answer: 'Si. Cubrimos el centro, Puchacay, Lomas de San Sebastian y sectores aledanos. La cercania con Concepcion facilita retiros frecuentes. Confirmamos disponibilidad por WhatsApp.' },
+];
+---
+
+<Layout
+  title="Vender Chatarra en Chiguayante | Retiro en el Dia desde 200 kg | Exportandes"
+  description="Vende chatarra de cobre, aluminio y metales en Chiguayante. Retiro desde 200 kg con coordinacion en el dia. Pago inmediato."
+  keywords="vender chatarra Chiguayante, compra metales Chiguayante, retiro mismo dia Biobio, precio cobre Chiguayante"
+  schema={localSchema}
+  canonical="https://exportandes.cl/zona/chiguayante"
+>
+  <Topbar />
+  <Navbar />
+
+  <main id="main-content">
+    <Hero
+      title={`Vender Chatarra en <span class="text-accent">Chiguayante</span>`}
+      subtitle="Retiro desde 200 kg con coordinacion en el dia. Cercania a Concepcion nos permite respuestas rapidas. Pago al momento."
+      small
+      cta={{ label: 'Vender ahora', href: waUrl }}
+    />
+
+    <!-- Local info section -->
+    <section class="section bg-white">
+      <div class="container-x max-w-4xl">
+        <p class="label">Coordinacion rapida</p>
+        <h2 class="text-2xl lg:text-3xl font-display font-bold text-base mb-6">Chiguayante: retiro en el dia</h2>
+        <div class="prose prose-base text-base-light space-y-4">
+          <p>La cercania de Chiguayante con Concepcion nos permite ofrecer <strong class="text-base">coordinacion en el dia</strong>. Escribenos por la manana con tu material y volumen; si la ruta lo permite, programamos el retiro para esa misma jornada.</p>
+          <p>Aplicamos <strong class="text-base">retiro desde 200 kg</strong> en toda la comuna: centro, Puchacay, Lomas de San Sebastian y sectores aledanos. Pago al momento, sin costos ocultos de traslado.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- PriceTable section -->
+    <section class="section bg-neutral">
+      <div class="container-x">
+        <p class="label">Precios vigentes</p>
+        <h2 class="text-2xl lg:text-3xl font-display font-bold text-base mb-8">Cotizacion por material</h2>
+        <PriceTable />
+        <p class="mt-4 text-xs text-base-light">* Precios referenciales. Validos para Chiguayante.</p>
+      </div>
+    </section>
+
+    <!-- CTA to vender -->
+    <section class="section bg-white">
+      <div class="container-x">
+        <div class="card max-w-2xl mx-auto text-center">
+          <h2 class="text-xl font-display font-bold text-base mb-3">Vende en Chiguayante hoy</h2>
+          <p class="text-base-light text-sm mb-6">Escribenos temprano y coordinamos retiro en el dia desde 200 kg.</p>
+          <a href={waUrl} target="_blank" rel="noopener" class="btn-whatsapp">
+            Vender material en Chiguayante
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <FAQ items={localFaq} />
+  </main>
+
+  <Footer />
+  <StickyWhatsApp />
+</Layout>

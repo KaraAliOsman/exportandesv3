@@ -2,10 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
-/* ═══════════════════════════════════════════════════════
-   EXPORTANDES — Global Design System
-   Industrial Elegance + Fintech Precision
-   ═══════════════════════════════════════════════════════ */
+/* ============================================
+   EXPORTANDES — Design System v2
+   Industrial · Clean · Editorial
+   ============================================ */
 
 @layer base {
   html {
@@ -13,140 +13,75 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
-
   body {
-    @apply bg-carbon text-white font-body;
-    overflow-x: hidden;
+    @apply bg-neutral text-base font-body text-base leading-relaxed;
   }
-
-  h1, h2, h3, h4, h5, h6 {
-    @apply font-heading font-bold tracking-tight;
+  h1, h2, h3, h4 {
+    @apply font-display font-bold text-base tracking-tight;
   }
-
   ::selection {
-    @apply bg-accent-teal/30 text-white;
+    @apply bg-accent/15 text-accent;
+  }
+  /* skip-to-content (a11y) */
+  .skip-link {
+    @apply sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2
+           focus:z-[9999] focus:bg-accent focus:text-white focus:px-4 focus:py-2
+           focus:rounded focus:text-sm;
   }
 }
 
 @layer components {
-  /* Glassmorphism Card */
-  .glass {
-    @apply bg-white/5 backdrop-blur-xl border border-white/10 shadow-2xl;
-  }
-
-  .glass-strong {
-    @apply bg-white/10 backdrop-blur-2xl border border-white/15 shadow-2xl;
-  }
-
-  /* CTA Buttons */
   .btn-primary {
-    @apply inline-flex items-center gap-2 px-6 py-3
-           bg-accent-teal text-white font-heading font-semibold
-           rounded-lg transition-all duration-300
-           hover:bg-accent-teal-light hover:shadow-lg hover:shadow-accent-teal/25
-           active:scale-95;
+    @apply inline-flex items-center justify-center gap-2 px-6 py-3
+           bg-accent text-white font-display font-semibold text-sm
+           rounded-md transition-colors duration-200
+           hover:bg-accent-hover focus-visible:outline-2 focus-visible:outline-offset-2
+           focus-visible:outline-accent;
   }
-
-  .btn-secondary {
-    @apply inline-flex items-center gap-2 px-6 py-3
-           border-2 border-accent-teal text-accent-teal font-heading font-semibold
-           rounded-lg transition-all duration-300
-           hover:bg-accent-teal hover:text-white
-           active:scale-95;
+  .btn-outline {
+    @apply inline-flex items-center justify-center gap-2 px-6 py-3
+           border-2 border-base text-base font-display font-semibold text-sm
+           rounded-md transition-colors duration-200
+           hover:bg-base hover:text-white focus-visible:outline-2
+           focus-visible:outline-offset-2 focus-visible:outline-base;
   }
-
   .btn-whatsapp {
-    @apply inline-flex items-center gap-2 px-6 py-3
-           bg-[#25D366] text-white font-heading font-semibold
-           rounded-lg transition-all duration-300
-           hover:bg-[#20BD5A] hover:shadow-lg hover:shadow-[#25D366]/30
-           active:scale-95;
+    @apply inline-flex items-center justify-center gap-2 px-6 py-3
+           bg-[#25D366] text-white font-display font-semibold text-sm
+           rounded-md transition-colors duration-200
+           hover:bg-[#1fb855] focus-visible:outline-2 focus-visible:outline-offset-2
+           focus-visible:outline-[#25D366];
   }
-
-  /* Price Display */
-  .price-tag {
-    @apply font-mono text-3xl font-bold text-accent-teal tabular-nums;
+  .btn-trust {
+    @apply inline-flex items-center justify-center gap-2 px-6 py-3
+           bg-trust text-white font-display font-semibold text-sm
+           rounded-md transition-colors duration-200
+           hover:bg-trust-hover focus-visible:outline-2 focus-visible:outline-offset-2
+           focus-visible:outline-trust;
   }
-
-  /* Section Wrapper */
-  .section-wrapper {
-    @apply relative py-20 lg:py-28;
+  .section {
+    @apply py-20 lg:py-28;
   }
-
-  /* Overlay for image backgrounds */
-  .bg-overlay {
-    @apply absolute inset-0 bg-gradient-to-b from-carbon/80 via-carbon/70 to-carbon;
+  .container-x {
+    @apply mx-auto max-w-7xl px-5 sm:px-6 lg:px-8;
   }
-
-  /* Animated underline for links */
-  .link-underline {
-    @apply relative after:absolute after:bottom-0 after:left-0
-           after:h-[2px] after:w-0 after:bg-accent-teal
-           after:transition-all after:duration-300
-           hover:after:w-full;
+  .label {
+    @apply inline-block text-xs font-display font-semibold uppercase tracking-widest text-accent mb-3;
   }
-
-  /* Trend indicators */
-  .trend-up {
-    @apply text-green-400;
+  .card {
+    @apply bg-white border border-neutral-dark rounded-lg p-6
+           transition-shadow duration-200 hover:shadow-md;
   }
-
-  .trend-down {
-    @apply text-red-400;
-  }
-
-  .trend-stable {
-    @apply text-yellow-400;
+  .input-field {
+    @apply w-full rounded-md border border-neutral-dark bg-white px-4 py-3
+           text-sm text-base placeholder:text-gray-400
+           focus:outline-none focus:ring-2 focus:ring-accent/40 focus:border-accent
+           transition-colors;
   }
 }
 
-@layer utilities {
-  .text-gradient {
-    @apply bg-clip-text text-transparent bg-gradient-to-r from-accent-teal to-accent-blue;
-  }
-
-  .animate-delay-100 { animation-delay: 100ms; }
-  .animate-delay-200 { animation-delay: 200ms; }
-  .animate-delay-300 { animation-delay: 300ms; }
-  .animate-delay-400 { animation-delay: 400ms; }
-  .animate-delay-500 { animation-delay: 500ms; }
-}
-
-/* Ticker animation */
-.ticker-track {
-  display: flex;
-  width: max-content;
-  animation: ticker 35s linear infinite;
-}
-
-.ticker-track:hover {
-  animation-play-state: paused;
-}
-
-/* Scrollbar styling */
-::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
-}
-
-::-webkit-scrollbar-track {
-  @apply bg-carbon;
-}
-
-::-webkit-scrollbar-thumb {
-  @apply bg-slate-mid rounded-full;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  @apply bg-accent-teal/50;
-}
-
-/* Page transition fade */
-@keyframes page-fade-in {
-  from { opacity: 0; transform: translateY(8px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-main {
-  animation: page-fade-in 0.4s ease-out;
+/* Accessible focus ring for keyboard nav */
+:focus-visible {
+  outline: 2px solid #0b5cff;
+  outline-offset: 2px;
 }

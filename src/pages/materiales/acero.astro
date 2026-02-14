@@ -1,0 +1,112 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import Topbar from '@/components/Topbar.astro';
+import Navbar from '@/components/Navbar.astro';
+import Hero from '@/components/Hero.astro';
+import PriceTable from '@/components/PriceTable.astro';
+import FAQ from '@/components/FAQ.astro';
+import Footer from '@/components/Footer.astro';
+import StickyWhatsApp from '@/components/StickyWhatsApp.astro';
+import prices from '../../../data/prices.json';
+
+const filteredPrices = prices.filter(p => p.category === 'acero');
+const waMessage = encodeURIComponent('Hola Exportandes, quiero vender acero inoxidable. Favor indicar cotización y retiro.');
+const waUrl = `https://wa.me/56933301114?text=${waMessage}`;
+
+const productSchema = {
+  "@context": "https://schema.org",
+  "@type": "Product",
+  "name": "Compra de Acero Inoxidable — Exportandes",
+  "description": "Compra de acero inoxidable reciclado al mejor precio en Concepción, Chile. Grados 304/316, sin contaminantes.",
+  "brand": { "@type": "Brand", "name": "Exportandes" },
+  "offers": filteredPrices.map(p => ({
+    "@type": "Offer",
+    "name": `Compra de ${p.name}`,
+    "price": p.price,
+    "priceCurrency": "CLP",
+    "priceSpecification": {
+      "@type": "UnitPriceSpecification",
+      "price": p.price,
+      "priceCurrency": "CLP",
+      "unitText": "kg"
+    },
+    "availability": "https://schema.org/InStock"
+  }))
+};
+
+const faq = [
+  { question: '¿Qué grados de acero inoxidable compran?', answer: 'Principalmente acero inoxidable 304 y 316, los más comunes en cocinas, equipos industriales, tuberías y estructuras. El material debe estar libre de contaminantes como fierro o acero al carbono.' },
+  { question: '¿Por qué debo separar el acero inoxidable del acero al carbono?', answer: 'El acero inoxidable se funde por separado. Si está mezclado con acero al carbono o fierro, el valor baja o puede rechazarse. Mantenerlo separado garantiza el mejor precio.' },
+  { question: '¿Cómo identificar el grado 304 o 316?', answer: 'El 304 es el más común en cocinas y equipos de uso doméstico. El 316 suele usarse en ambientes marinos o químicos. Si tienes dudas, envía fotos por WhatsApp y te ayudamos a identificarlo.' }
+];
+
+const tips = [
+  'Identifica el grado (304/316) cuando sea posible.',
+  'Mantén el acero inoxidable separado del acero al carbono.'
+];
+---
+
+<Layout
+  title="Compra de Acero Inoxidable | Exportandes Concepcion"
+  description="Vende tu acero inoxidable al mejor precio en Concepción. Grados 304/316, sin contaminantes. Pago inmediato. WhatsApp ahora."
+  keywords="precio acero inoxidable Chile, vender acero reciclado, compra acero inox Concepcion"
+  schema={productSchema}
+>
+  <Topbar />
+  <Navbar />
+
+  <main id="main-content">
+    <Hero
+      title='Compra de <span class="text-accent">Acero Inoxidable</span>'
+      subtitle="Grados 304/316, sin contaminantes. Los mejores precios para acero inoxidable reciclado en la Región del Bio Bío."
+      small
+      cta={{ label: 'Vender acero', href: waUrl }}
+    />
+
+    <section class="section bg-white">
+      <div class="container-x">
+        <PriceTable filter="acero" />
+        <p class="mt-4 text-xs text-base-light">* Precios referenciales. Varían según volumen, grado y condiciones de mercado.</p>
+      </div>
+    </section>
+
+    <section class="section bg-neutral">
+      <div class="container-x max-w-3xl">
+        <p class="label">Información</p>
+        <h2 class="text-3xl lg:text-4xl mb-6">Todo sobre el acero inoxidable</h2>
+        <div class="prose prose-sm max-w-none text-base-light leading-relaxed space-y-4">
+          <p>El <strong>acero inoxidable</strong> es uno de los metales más reciclables. En <strong>Concepción</strong>, Exportandes compra acero inoxidable de grados 304 y 316 al mejor precio.</p>
+          <h3 class="text-base font-display font-bold text-base mt-6">Grados que aceptamos</h3>
+          <p>Acero inoxidable 304 (el más común en cocinas, mesones, equipos) y 316 (ambientes marinos, químicos). El material debe estar libre de contaminantes como fierro o acero al carbono.</p>
+          <h3 class="text-base font-display font-bold text-base mt-6">Cómo prepararlo</h3>
+          <p>Mantén el acero inoxidable separado del acero al carbono. No mezcles con fierro ni otros metales. Material puro y clasificado paga el mejor precio.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section bg-white">
+      <div class="container-x max-w-3xl">
+        <p class="label">Consejos</p>
+        <h2 class="text-3xl lg:text-4xl mb-8">Cómo mejorar tu precio</h2>
+        <ul class="space-y-3">
+          {tips.map((tip) => (
+            <li class="flex gap-3 items-start">
+              <span class="shrink-0 w-6 h-6 rounded-full bg-accent/10 flex items-center justify-center">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#0b5cff" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg>
+              </span>
+              <span class="text-base-light">{tip}</span>
+            </li>
+          ))}
+        </ul>
+        <a href={waUrl} target="_blank" rel="noopener" class="btn-primary mt-8">
+          Cotizar mi acero
+        </a>
+      </div>
+    </section>
+
+    <FAQ items={faq} />
+  </main>
+
+  <Footer />
+  <StickyWhatsApp />
+</Layout>

@@ -1,0 +1,91 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import Topbar from '@/components/Topbar.astro';
+import Navbar from '@/components/Navbar.astro';
+import Hero from '@/components/Hero.astro';
+import PriceTable from '@/components/PriceTable.astro';
+import FAQ from '@/components/FAQ.astro';
+import Footer from '@/components/Footer.astro';
+import StickyWhatsApp from '@/components/StickyWhatsApp.astro';
+
+const waUrl = `https://wa.me/56933301114?text=${encodeURIComponent('Hola Exportandes, quiero vender material en Coronel.')}`;
+
+const localSchema = {
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  "name": "Exportandes - Venta de Chatarra en Coronel",
+  "description": "Compra de chatarra de cobre, aluminio y metales en Coronel. Zona industrial y residencial. Retiro desde 300 kg.",
+  "image": "/images/og-default.jpg",
+  "address": { "@type": "PostalAddress", "addressLocality": "Coronel", "addressRegion": "Biobio", "addressCountry": "CL" },
+  "telephone": "+56933301114",
+  "url": "https://exportandes.cl/zona/coronel",
+  "openingHours": "Mo-Fr 08:00-18:00",
+  "areaServed": { "@type": "City", "name": "Coronel", "containedInPlace": { "@type": "AdministrativeArea", "name": "Region del Biobio" } }
+};
+
+const localFaq = [
+  { question: 'Cual es el minimo para retiro en Coronel?', answer: 'En Coronel retiramos desde 300 kg. La comuna combina actividad industrial (carbon, pesqueras, termoelectrica) con sectores residenciales; el minimo nos permite cubrir la distancia desde Concepcion manteniendo precios competitivos.' },
+  { question: 'Atienden empresas industriales de Coronel?', answer: 'Si. Trabajamos con empresas mineras, pesqueras, termoelectricas y talleres de la zona. Coordinamos retiros programados y volumenes grandes. Para industrias con toneladas, ofrecemos precios premium y logistica dedicada.' },
+  { question: 'Cubren Schwager, Maule y sectores costeros?', answer: 'Si. Cubrimos Coronel centro, Schwager, Maule, Playa Negra y sectores costeros. El minimo de 300 kg aplica en toda la comuna. La coordinacion se hace por WhatsApp con anticipacion para planificar la ruta.' },
+];
+---
+
+<Layout
+  title="Vender Chatarra en Coronel | Retiro desde 300 kg | Exportandes"
+  description="Vende chatarra de cobre, aluminio y metales en Coronel. Zona industrial y residencial. Retiro gratuito desde 300 kg. Pago inmediato."
+  keywords="vender chatarra Coronel, compra metales Schwager, retiro chatarra zona carbon, precio cobre Coronel"
+  schema={localSchema}
+  canonical="https://exportandes.cl/zona/coronel"
+>
+  <Topbar />
+  <Navbar />
+
+  <main id="main-content">
+    <Hero
+      title={`Vender Chatarra en <span class="text-accent">Coronel</span>`}
+      subtitle="Zona industrial y residencial. Retiro desde 300 kg en Schwager, Maule y sectores costeros. Precios competitivos, pago al momento."
+      small
+      cta={{ label: 'Vender ahora', href: waUrl }}
+    />
+
+    <!-- Local info section -->
+    <section class="section bg-white">
+      <div class="container-x max-w-4xl">
+        <p class="label">Zona industrial y residencial</p>
+        <h2 class="text-2xl lg:text-3xl font-display font-bold text-base mb-6">Coronel: mineria, pesca y industria</h2>
+        <div class="prose prose-base text-base-light space-y-4">
+          <p>Coronel concentra mineria del carbon, industria pesquera, termoelectrica y actividad portuaria que genera chatarra metalica continua. Para esta comuna aplicamos <strong class="text-base">retiro desde 300 kg</strong>.</p>
+          <p>Cubrimos Coronel centro, Schwager, Maule, Playa Negra y sectores residenciales. Trabajamos con empresas, talleres y particulares. Coordinamos fechas con anticipacion para optimizar rutas y ofrecer el mejor precio.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- PriceTable section -->
+    <section class="section bg-neutral">
+      <div class="container-x">
+        <p class="label">Precios vigentes</p>
+        <h2 class="text-2xl lg:text-3xl font-display font-bold text-base mb-8">Cotizacion por material</h2>
+        <PriceTable />
+        <p class="mt-4 text-xs text-base-light">* Precios referenciales. Validos para Coronel y zona carbonifera.</p>
+      </div>
+    </section>
+
+    <!-- CTA to vender -->
+    <section class="section bg-white">
+      <div class="container-x">
+        <div class="card max-w-2xl mx-auto text-center">
+          <h2 class="text-xl font-display font-bold text-base mb-3">Vende en Coronel desde 300 kg</h2>
+          <p class="text-base-light text-sm mb-6">Escribenos con tu material y volumen. Coordinamos retiro en la zona industrial y residencial.</p>
+          <a href={waUrl} target="_blank" rel="noopener" class="btn-whatsapp">
+            Vender material en Coronel
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <FAQ items={localFaq} />
+  </main>
+
+  <Footer />
+  <StickyWhatsApp />
+</Layout>

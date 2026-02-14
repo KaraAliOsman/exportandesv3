@@ -1,0 +1,83 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import Topbar from '@/components/Topbar.astro';
+import Navbar from '@/components/Navbar.astro';
+import Hero from '@/components/Hero.astro';
+import FAQ from '@/components/FAQ.astro';
+import Footer from '@/components/Footer.astro';
+import StickyWhatsApp from '@/components/StickyWhatsApp.astro';
+
+const zones = [
+  { name: 'Concepcion', slug: 'concepcion', pickup: 'Retiro sin minimo', desc: 'Sede principal. Bodega abierta Lun-Vie.' },
+  { name: 'Talcahuano', slug: 'talcahuano', pickup: 'Retiro desde 100 kg', desc: 'Zona portuaria e industrial.' },
+  { name: 'San Pedro de la Paz', slug: 'san-pedro-de-la-paz', pickup: 'Retiro desde 200 kg', desc: 'Cobertura completa sector residencial.' },
+  { name: 'Chiguayante', slug: 'chiguayante', pickup: 'Retiro desde 200 kg', desc: 'Retiro coordinado en el dia.' },
+  { name: 'Coronel', slug: 'coronel', pickup: 'Retiro desde 300 kg', desc: 'Zona industrial y residencial.' },
+  { name: 'Los Angeles', slug: 'los-angeles', pickup: 'Retiro desde 500 kg', desc: 'Provincia de Biobio interior.' },
+];
+
+const faq = [
+  { question: 'Cubren toda la Region del Biobio?', answer: 'Si. Operamos en todas las comunas de la Region del Biobio. Para comunas mas alejadas de Concepcion, el minimo de retiro puede ser mayor. Consulta tu comuna especifica.' },
+  { question: 'Cuanto cuesta el retiro a domicilio?', answer: 'El retiro es gratuito siempre que se cumpla el minimo de kilos para tu zona. No hay cargos ocultos.' },
+  { question: 'Pueden retirar en empresas fuera de horario?', answer: 'Si, coordinamos horarios especiales para empresas e industrias. Contactanos por WhatsApp para acordar.' },
+];
+---
+
+<Layout
+  title="Zonas de Cobertura -- Retiro de Chatarra en Biobio | Exportandes"
+  description="Retiramos chatarra en Concepcion, Talcahuano, San Pedro, Chiguayante, Coronel y todo Biobio. Consulta las condiciones de retiro para tu comuna."
+  keywords="retiro chatarra Concepcion, compra metales Talcahuano, reciclaje Biobio, retiro domicilio chatarra"
+>
+  <Topbar />
+  <Navbar />
+
+  <main id="main-content">
+    <Hero
+      title='Zonas de <span class="text-accent">cobertura</span>'
+      subtitle="Retiramos material en toda la Region del Biobio. Camion propio, sin costos ocultos, coordinacion en el dia."
+      small
+    />
+
+    <!-- Map + zones -->
+    <section class="section bg-white">
+      <div class="container-x">
+        <div class="grid lg:grid-cols-5 gap-12">
+          <!-- Map -->
+          <div class="lg:col-span-3 rounded-lg overflow-hidden border border-neutral-dark h-[400px]">
+            <iframe
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d200000!2d-73.15!3d-36.82!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9669b5448e5c7b05%3A0x2e4f4b5b5a5c6c0!2sConcepci%C3%B3n!5e0!3m2!1ses!2scl!4v1700000000000"
+              width="100%"
+              height="100%"
+              style="border:0;"
+              allowfullscreen=""
+              loading="lazy"
+              title="Mapa de cobertura Exportandes en Biobio"
+            ></iframe>
+          </div>
+
+          <!-- Zone list -->
+          <div class="lg:col-span-2 space-y-3">
+            <p class="label">Comunas con retiro</p>
+            {zones.map((z) => {
+              const waMsg = encodeURIComponent(`Hola Exportandes, quiero vender material en ${z.name}. Favor indicar condiciones de retiro.`);
+              return (
+                <a href={`/zona/${z.slug}`} class="card flex items-center justify-between group p-4">
+                  <div>
+                    <h3 class="font-display font-semibold text-base text-sm group-hover:text-accent transition-colors">{z.name}</h3>
+                    <p class="text-xs text-base-light">{z.pickup}</p>
+                  </div>
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="text-base-light group-hover:text-accent transition-colors shrink-0"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                </a>
+              );
+            })}
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <FAQ items={faq} />
+  </main>
+
+  <Footer />
+  <StickyWhatsApp />
+</Layout>

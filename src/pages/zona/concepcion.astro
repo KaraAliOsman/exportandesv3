@@ -1,0 +1,100 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import Topbar from '@/components/Topbar.astro';
+import Navbar from '@/components/Navbar.astro';
+import Hero from '@/components/Hero.astro';
+import PriceTable from '@/components/PriceTable.astro';
+import FAQ from '@/components/FAQ.astro';
+import Footer from '@/components/Footer.astro';
+import StickyWhatsApp from '@/components/StickyWhatsApp.astro';
+
+const commune = 'Concepcion';
+const waUrl = `https://wa.me/56933301114?text=${encodeURIComponent('Hola Exportandes, quiero vender material en Concepcion.')}`;
+
+const localSchema = {
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  "name": "Exportandes - Venta de Chatarra en Concepcion",
+  "description": "Compra de chatarra de cobre, aluminio y metales en Concepcion. Sede principal sin minimo de retiro. Bodega en Av. Pedro de Valdivia 733.",
+  "image": "/images/og-default.jpg",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "Av. Pedro de Valdivia 733",
+    "addressLocality": "Concepcion",
+    "addressRegion": "Biobio",
+    "postalCode": "4030000",
+    "addressCountry": "CL"
+  },
+  "geo": { "@type": "GeoCoordinates", "latitude": -36.827, "longitude": -73.050 },
+  "telephone": "+56933301114",
+  "url": "https://exportandes.cl/zona/concepcion",
+  "openingHours": "Mo-Fr 08:00-18:00",
+  "areaServed": { "@type": "City", "name": "Concepcion", "containedInPlace": { "@type": "AdministrativeArea", "name": "Region del Biobio" } }
+};
+
+const localFaq = [
+  { question: 'Hay minimo de kilos para retiro en Concepcion?', answer: 'No. En Concepcion, sede principal de Exportandes, retiramos desde cualquier cantidad sin minimo. Puedes traer tu material a nuestra bodega en Av. Pedro de Valdivia 733 o coordinar retiro a domicilio.' },
+  { question: 'Puedo llevar mi chatarra directo a la bodega?', answer: 'Si. Nuestra bodega en Av. Pedro de Valdivia 733 esta abierta de lunes a viernes de 08:00 a 18:00. Llega con tu material, pesamos en el momento y pagamos al instante. No necesitas agendar.' },
+  { question: 'Cubren todo Concepcion centro y alrededores?', answer: 'Si. Cubrimos todo el gran Concepcion: centro, Barrio Universitario, San Sebastian, Coliumo, Penco limitrofe y sectores aledanos. Para retiro a domicilio no cobramos traslado dentro de la comuna.' },
+];
+---
+
+<Layout
+  title="Vender Chatarra en Concepcion | Sin Minimo | Exportandes"
+  description="Vende chatarra de cobre, aluminio y metales en Concepcion. Sede principal sin minimo. Bodega en Av. Pedro de Valdivia 733. Pago inmediato, retiro gratuito."
+  keywords="vender chatarra Concepcion, compra cobre Concepcion, precio aluminio Concepcion, reciclaje metales Biobio"
+  schema={localSchema}
+  canonical="https://exportandes.cl/zona/concepcion"
+>
+  <Topbar />
+  <Navbar />
+
+  <main id="main-content">
+    <Hero
+      title={`Vender Chatarra en <span class="text-accent">Concepcion</span>`}
+      subtitle="Sede principal. Sin minimo de retiro. Trae tu material a Av. Pedro de Valdivia 733 o coordina retiro a domicilio en todo el gran Concepcion."
+      small
+      cta={{ label: 'Vender ahora', href: waUrl }}
+    />
+
+    <!-- Local info section -->
+    <section class="section bg-white">
+      <div class="container-x max-w-4xl">
+        <p class="label">Sede principal</p>
+        <h2 class="text-2xl lg:text-3xl font-display font-bold text-base mb-6">Concepcion: nucleo de operaciones</h2>
+        <div class="prose prose-base text-base-light space-y-4">
+          <p>En Concepcion operamos desde nuestra bodega en <strong class="text-base">Av. Pedro de Valdivia 733</strong>, punto de referencia para empresas, talleres y particulares de la comuna. A diferencia del resto de la region, <strong class="text-trust">no aplicamos minimo de kilos</strong> para retiro ni para venta en sitio: puedes traer desde 1 kg.</p>
+          <p>El centro de Concepcion, Barrio Universitario, San Sebastian y sectores residenciales aledanos quedan cubiertos con retiro sin cargo. Nuestro horario de atencion es de lunes a viernes de 08:00 a 18:00.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- PriceTable section -->
+    <section class="section bg-neutral">
+      <div class="container-x">
+        <p class="label">Precios vigentes</p>
+        <h2 class="text-2xl lg:text-3xl font-display font-bold text-base mb-8">Cotizacion por material</h2>
+        <PriceTable />
+        <p class="mt-4 text-xs text-base-light">* Precios referenciales. Validos para Concepcion y zona metropolitana.</p>
+      </div>
+    </section>
+
+    <!-- CTA to vender -->
+    <section class="section bg-white">
+      <div class="container-x">
+        <div class="card max-w-2xl mx-auto text-center">
+          <h2 class="text-xl font-display font-bold text-base mb-3">Listo para vender en Concepcion?</h2>
+          <p class="text-base-light text-sm mb-6">Escribenos por WhatsApp y coordinamos retiro o venta en bodega el mismo dia.</p>
+          <a href={waUrl} target="_blank" rel="noopener" class="btn-whatsapp">
+            Vender material en Concepcion
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <FAQ items={localFaq} />
+  </main>
+
+  <Footer />
+  <StickyWhatsApp />
+</Layout>

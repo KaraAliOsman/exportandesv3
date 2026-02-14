@@ -5,109 +5,82 @@ interface Props {
   title: string;
   description?: string;
   keywords?: string;
-  ogImage?: string;
-  schema?: object;
+  schema?: object | object[];
+  canonical?: string;
 }
 
 const {
   title,
-  description = 'Exportandes - Compra de chatarra y metales al mejor precio en Concepción, Chile. Cobre, aluminio y más. Exportación directa a Turquía.',
-  keywords = 'compro chatarra Bio Bio, precio cobre hoy Concepción, venta perfil aluminio exportación, reciclaje industrial Chile, compra metales Concepción',
-  ogImage = '/og-image.jpg',
+  description = 'Exportandes compra chatarra de cobre, aluminio y metales al mejor precio en Concepcion y Biobio. Pago inmediato. Exportacion directa.',
+  keywords = 'comprar chatarra Concepcion, vender perfil aluminio Biobio, precio cobre kg Chile',
   schema,
+  canonical,
 } = Astro.props;
 
-const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+const canonicalURL = canonical
+  ? new URL(canonical, Astro.site)
+  : new URL(Astro.url.pathname, Astro.site);
 
 const defaultSchema = {
   "@context": "https://schema.org",
   "@type": "LocalBusiness",
   "name": "Exportandes",
-  "description": "Compra de chatarra y metales al mejor precio en Concepción, Chile. Exportación directa desde Bio Bio.",
-  "image": "/og-image.jpg",
+  "description": description,
+  "image": "/images/og-default.jpg",
   "address": {
     "@type": "PostalAddress",
     "streetAddress": "Av. Pedro de Valdivia 733",
-    "addressLocality": "Concepción",
-    "addressRegion": "Biobío",
+    "addressLocality": "Concepcion",
+    "addressRegion": "Biobio",
     "postalCode": "4030000",
     "addressCountry": "CL"
   },
-  "geo": {
-    "@type": "GeoCoordinates",
-    "latitude": -36.8270,
-    "longitude": -73.0503
-  },
+  "geo": { "@type": "GeoCoordinates", "latitude": -36.827, "longitude": -73.050 },
   "telephone": "+56933301114",
   "url": "https://exportandes.cl",
+  "openingHours": "Mo-Fr 08:00-18:00",
   "priceRange": "$$",
-  "openingHoursSpecification": {
-    "@type": "OpeningHoursSpecification",
-    "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
-    "opens": "08:30",
-    "closes": "18:00"
-  },
-  "sameAs": [],
-  "areaServed": {
-    "@type": "GeoCircle",
-    "geoMidpoint": {
-      "@type": "GeoCoordinates",
-      "latitude": -36.8270,
-      "longitude": -73.0503
-    },
-    "geoRadius": "100000"
-  }
+  "founder": { "@type": "Person", "name": "[NOMBRE CEO]", "jobTitle": "CEO" },
+  "sameAs": ["https://exportandes.cl"]
 };
 
-const schemaData = schema || defaultSchema;
+const schemas = schema
+  ? Array.isArray(schema) ? [defaultSchema, ...schema] : [defaultSchema, schema]
+  : [defaultSchema];
 ---
 
 <!doctype html>
-<html lang="es-CL" class="scroll-smooth">
+<html lang="es-CL">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="generator" content={Astro.generator} />
 
-    <!-- Primary Meta Tags -->
     <title>{title}</title>
-    <meta name="title" content={title} />
     <meta name="description" content={description} />
     <meta name="keywords" content={keywords} />
     <meta name="author" content="Exportandes" />
     <meta name="robots" content="index, follow" />
     <link rel="canonical" href={canonicalURL} />
 
-    <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website" />
     <meta property="og:url" content={canonicalURL} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
-    <meta property="og:image" content={ogImage} />
     <meta property="og:locale" content="es_CL" />
 
-    <!-- Twitter -->
-    <meta property="twitter:card" content="summary_large_image" />
-    <meta property="twitter:url" content={canonicalURL} />
-    <meta property="twitter:title" content={title} />
-    <meta property="twitter:description" content={description} />
-    <meta property="twitter:image" content={ogImage} />
-
-    <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 
-    <!-- Google Fonts: Space Grotesk + Inter + JetBrains Mono -->
+    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;700&family=Space+Grotesk:wght@500;600;700&display=swap"
-      rel="stylesheet"
-    />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;700&family=Montserrat:wght@600;700;800&display=swap" rel="stylesheet" />
 
-    <!-- JSON-LD Structured Data -->
-    <script type="application/ld+json" set:html={JSON.stringify(schemaData)} />
+    {schemas.map((s) => (
+      <script type="application/ld+json" set:html={JSON.stringify(s)} />
+    ))}
   </head>
-  <body class="min-h-screen bg-carbon text-white antialiased">
+  <body class="min-h-screen flex flex-col">
+    <a href="#main-content" class="skip-link">Ir al contenido</a>
     <slot />
   </body>
 </html>

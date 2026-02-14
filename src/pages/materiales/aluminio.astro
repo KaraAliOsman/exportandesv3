@@ -1,89 +1,116 @@
 ---
 import Layout from '@/layouts/Layout.astro';
+import Topbar from '@/components/Topbar.astro';
 import Navbar from '@/components/Navbar.astro';
-import MaterialDetail from '@/components/MaterialDetail.astro';
+import Hero from '@/components/Hero.astro';
+import PriceTable from '@/components/PriceTable.astro';
+import FAQ from '@/components/FAQ.astro';
 import Footer from '@/components/Footer.astro';
+import StickyWhatsApp from '@/components/StickyWhatsApp.astro';
+import prices from '../../../data/prices.json';
 
-const materials = [
-  {
-    name: 'Perfil de Aluminio',
-    price: '$1.900',
-    description: 'Marcos de ventanas, puertas, barandas, perfiles de construcción',
-  },
-  {
-    name: 'Aluminio Duro (Fundición)',
-    price: '$1.400',
-    description: 'Piezas macizas, motores, bloques, partes industriales',
-  },
-  {
-    name: 'Latas de Aluminio',
-    price: '$900',
-    description: 'Latas de bebida compactadas o sueltas, papel aluminio',
-  },
-  {
-    name: 'Aluminio Limpio Mixto',
-    price: '$1.200',
-    description: 'Mezcla de tipos de aluminio limpio y separado',
-  },
-];
+const filteredPrices = prices.filter(p => p.category === 'aluminio');
+const waMessage = encodeURIComponent('Hola Exportandes, quiero vender aluminio. Favor indicar cotización y retiro.');
+const waUrl = `https://wa.me/56933301114?text=${waMessage}`;
 
-const seoContent = `
-<p>El <strong>aluminio</strong> es uno de los metales más reciclados del mundo, y en <strong>Concepción</strong> y la <strong>Región del Bio Bio</strong>, Exportandes ofrece los <strong>mejores precios de compra por kilo de aluminio</strong> del mercado.</p>
-
-<h3>¿Por qué reciclar aluminio en 2026?</h3>
-<p>El reciclaje de aluminio consume un <strong>95% menos de energía</strong> que la producción primaria. Esto convierte al aluminio reciclado en uno de los materiales más valiosos de la economía circular. En Exportandes, compramos tu aluminio y lo exportamos directamente a fundiciones internacionales en <strong>Turquía</strong>, lo que nos permite ofrecerte un precio muy superior al de cualquier chatarrería local.</p>
-
-<h3>¿Qué tipos de aluminio aceptamos?</h3>
-<p>Compramos prácticamente todos los tipos de aluminio: <strong>perfil de aluminio</strong> (ventanas, puertas, marcos), <strong>aluminio duro</strong> (piezas industriales, motores), <strong>latas de aluminio</strong> (compactadas o sueltas) y aluminio mixto limpio. Para obtener el mejor precio, te recomendamos separar el aluminio por tipo.</p>
-
-<h3>Proceso de compra</h3>
-<p>Es simple: <strong>1)</strong> Contáctanos por WhatsApp, <strong>2)</strong> Trae tu material o coordina retiro para +500 kg, <strong>3)</strong> Pesamos con balanza certificada a la vista, <strong>4)</strong> Te pagamos al instante en efectivo o transferencia. Sin letra chica, sin descuentos sorpresa.</p>
-
-<h3>Precio del aluminio en Chile 2026</h3>
-<p>El <strong>precio del kilo de aluminio en Chile</strong> varía según el tipo y la pureza del material. En Exportandes actualizamos nuestros precios diariamente de acuerdo al mercado internacional de la <strong>London Metal Exchange (LME)</strong>. Consulta siempre nuestros precios actualizados para asegurar que estás recibiendo el mejor valor por tu material.</p>
-`;
-
-const schema = {
+const productSchema = {
   "@context": "https://schema.org",
   "@type": "Product",
   "name": "Compra de Aluminio — Exportandes",
   "description": "Compra de aluminio reciclado al mejor precio en Concepción, Chile. Perfil de aluminio, aluminio duro, latas y más.",
   "brand": { "@type": "Brand", "name": "Exportandes" },
-  "offers": materials.map(m => ({
+  "offers": filteredPrices.map(p => ({
     "@type": "Offer",
-    "name": `Compra de ${m.name}`,
-    "price": m.price.replace('$', '').replace('.', ''),
+    "name": `Compra de ${p.name}`,
+    "price": p.price,
     "priceCurrency": "CLP",
     "priceSpecification": {
       "@type": "UnitPriceSpecification",
-      "price": m.price.replace('$', '').replace('.', ''),
+      "price": p.price,
       "priceCurrency": "CLP",
       "unitText": "kg"
     },
     "availability": "https://schema.org/InStock"
-  })),
+  }))
 };
+
+const faq = [
+  { question: '¿Qué tipos de aluminio aceptan?', answer: 'Aceptamos perfil de aluminio limpio (marcos de ventanas, puertas, barandas), aluminio duro o fundición (piezas macizas, motores, bloques industriales), latas de aluminio (compactadas o sueltas) y aluminio mixto limpio. Cada tipo tiene un precio diferente.' },
+  { question: '¿Cómo debo preparar el aluminio para vender?', answer: 'Para obtener el mejor precio, retira tornillos, gomas, plásticos adheridos y cualquier contaminante. Separa por tipo (perfil, duro, latas) y corta perfiles muy largos para facilitar el pesaje.' },
+  { question: '¿Por qué reciclar aluminio?', answer: 'El reciclaje de aluminio consume un 95% menos de energía que la producción primaria. Es uno de los materiales más valiosos de la economía circular. En Exportandes exportamos directamente a fundiciones internacionales, pagando precios superiores al mercado local.' },
+  { question: '¿Cuál es el precio del kilo de aluminio hoy?', answer: 'Los precios varían según el tipo. Actualizamos diariamente según la London Metal Exchange (LME). Consulta la tabla de precios en esta página o escríbenos por WhatsApp para cotización actualizada.' }
+];
+
+const tips = [
+  'Retira tornillos, gomas y plásticos adheridos antes de vender.',
+  'Separa el aluminio por tipo: perfil, duro, latas.',
+  'Corta perfiles muy largos para facilitar el pesaje.'
+];
 ---
 
 <Layout
-  title="Compra de Aluminio al Mejor Precio — Perfil, Latas, Duro | Exportandes Concepción"
-  description="Vendé tu aluminio al mejor precio en Concepción. Perfil $1.900/kg, Aluminio Duro $1.400/kg, Latas $900/kg. Pago inmediato. Exportación directa. WhatsApp ahora."
-  keywords="reciclaje de aluminio Concepción, precio kilo aluminio Chile 2026, vender perfil aluminio, compra aluminio Bio Bio, precio aluminio hoy, chatarra aluminio Concepción, reciclar latas aluminio precio"
-  schema={schema}
+  title="Compra de Aluminio al Mejor Precio - Perfil, Latas, Duro | Exportandes Concepcion"
+  description="Vende tu aluminio al mejor precio en Concepción. Perfil limpio, aluminio duro, latas. Pago inmediato. Exportación directa. WhatsApp ahora."
+  keywords="reciclaje aluminio Concepcion, precio kilo aluminio Chile 2026, vender perfil aluminio, compra aluminio Bio Bio"
+  schema={productSchema}
 >
+  <Topbar />
   <Navbar />
 
-  <main>
-    <MaterialDetail
-      title="Aluminio"
-      subtitle="Compramos todos los tipos de aluminio a los precios más competitivos de la Región del Bio Bio. Exportación directa sin intermediarios."
-      description="En Exportandes nos especializamos en la compra de aluminio reciclado para exportación. Aceptamos perfil de aluminio (marcos de ventanas, puertas, perfiles de construcción), aluminio duro (piezas de motor, bloques industriales), latas de bebida y aluminio mixto limpio. Para obtener el mejor precio, te recomendamos separar el material por tipo y eliminar cualquier contaminante (plástico, fierro, etc.)."
-      heroColor="bg-blue-500"
-      materials={materials}
-      seoContent={seoContent}
-      whatsappMessage="Hola, vi su web y quiero vender aluminio. ¿Cuál es el precio actual?"
+  <main id="main-content">
+    <Hero
+      title='Compra de <span class="text-accent">Aluminio</span>'
+      subtitle="Perfil limpio, aluminio duro, latas. Los mejores precios de la Región del Bio Bío. Exportación directa sin intermediarios."
+      small
+      cta={{ label: 'Vender aluminio', href: waUrl }}
     />
+
+    <section class="section bg-white">
+      <div class="container-x">
+        <PriceTable filter="aluminio" />
+        <p class="mt-4 text-xs text-base-light">* Precios referenciales. Varían según volumen, calidad y condiciones de mercado.</p>
+      </div>
+    </section>
+
+    <section class="section bg-neutral">
+      <div class="container-x max-w-3xl">
+        <p class="label">Información</p>
+        <h2 class="text-3xl lg:text-4xl mb-6">Todo sobre el aluminio</h2>
+        <div class="prose prose-sm max-w-none text-base-light leading-relaxed space-y-4">
+          <p>El <strong>aluminio</strong> es uno de los metales más reciclados del mundo. En <strong>Concepción</strong> y la <strong>Región del Bio Bío</strong>, Exportandes ofrece los <strong>mejores precios de compra por kilo de aluminio</strong> del mercado.</p>
+          <h3 class="text-base font-display font-bold text-base mt-6">Tipos de aluminio que aceptamos</h3>
+          <p>Compramos perfil de aluminio (ventanas, puertas, marcos), aluminio duro (piezas industriales, motores), latas de aluminio (compactadas o sueltas) y aluminio mixto limpio. Para obtener el mejor precio, separa el aluminio por tipo.</p>
+          <h3 class="text-base font-display font-bold text-base mt-6">Cómo prepararlo</h3>
+          <p>Elimina tornillos, gomas, plásticos y contaminantes. Separa por tipo y corta perfiles largos. El material limpio paga más.</p>
+          <h3 class="text-base font-display font-bold text-base mt-6">Por qué reciclar</h3>
+          <p>El reciclaje de aluminio consume un 95% menos de energía que la producción primaria. Exportamos directamente a fundiciones en Turquía, pagando precios muy superiores a cualquier chatarrería local.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section bg-white">
+      <div class="container-x max-w-3xl">
+        <p class="label">Consejos</p>
+        <h2 class="text-3xl lg:text-4xl mb-8">Cómo mejorar tu precio</h2>
+        <ul class="space-y-3">
+          {tips.map((tip) => (
+            <li class="flex gap-3 items-start">
+              <span class="shrink-0 w-6 h-6 rounded-full bg-accent/10 flex items-center justify-center">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#0b5cff" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg>
+              </span>
+              <span class="text-base-light">{tip}</span>
+            </li>
+          ))}
+        </ul>
+        <a href={waUrl} target="_blank" rel="noopener" class="btn-primary mt-8">
+          Cotizar mi aluminio
+        </a>
+      </div>
+    </section>
+
+    <FAQ items={faq} />
   </main>
 
   <Footer />
+  <StickyWhatsApp />
 </Layout>

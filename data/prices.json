@@ -1,0 +1,82 @@
+[
+  {
+    "id": "al-perf-limpio",
+    "name": "Perfil de aluminio (limpio)",
+    "slug": "aluminio",
+    "price": 1900,
+    "unit": "CLP/kg",
+    "category": "aluminio",
+    "conditions": "Sin tornillos, gomas ni plástico adherido",
+    "trend": "up"
+  },
+  {
+    "id": "cobre-cable",
+    "name": "Cobre cable limpio",
+    "slug": "cobre",
+    "price": 7200,
+    "unit": "CLP/kg",
+    "category": "cobre",
+    "conditions": "Cable pelado, sin PVC ni barniz",
+    "trend": "up"
+  },
+  {
+    "id": "cobre-mixto",
+    "name": "Cobre mixto / con plástico",
+    "slug": "cobre",
+    "price": 3400,
+    "unit": "CLP/kg",
+    "category": "cobre",
+    "conditions": "Cable con recubrimiento, radiadores",
+    "trend": "stable"
+  },
+  {
+    "id": "laton",
+    "name": "Latón",
+    "slug": "laton",
+    "price": 3100,
+    "unit": "CLP/kg",
+    "category": "laton",
+    "conditions": "Grifería, válvulas, piezas mixtas",
+    "trend": "stable"
+  },
+  {
+    "id": "al-duro",
+    "name": "Aluminio duro / fundición",
+    "slug": "aluminio",
+    "price": 1400,
+    "unit": "CLP/kg",
+    "category": "aluminio",
+    "conditions": "Piezas macizas, motor, industrial",
+    "trend": "stable"
+  },
+  {
+    "id": "al-latas",
+    "name": "Latas de aluminio",
+    "slug": "aluminio",
+    "price": 900,
+    "unit": "CLP/kg",
+    "category": "aluminio",
+    "conditions": "Compactadas o sueltas, limpias",
+    "trend": "up"
+  },
+  {
+    "id": "acero-inox",
+    "name": "Acero inoxidable",
+    "slug": "acero",
+    "price": 800,
+    "unit": "CLP/kg",
+    "category": "acero",
+    "conditions": "304/316, sin contaminantes",
+    "trend": "stable"
+  },
+  {
+    "id": "bronce",
+    "name": "Bronce",
+    "slug": "laton",
+    "price": 4200,
+    "unit": "CLP/kg",
+    "category": "laton",
+    "conditions": "Piezas de bronce, campanas, engranajes",
+    "trend": "up"
+  }
+]

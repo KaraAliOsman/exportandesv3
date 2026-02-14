@@ -1,0 +1,91 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import Topbar from '@/components/Topbar.astro';
+import Navbar from '@/components/Navbar.astro';
+import Hero from '@/components/Hero.astro';
+import PriceTable from '@/components/PriceTable.astro';
+import FAQ from '@/components/FAQ.astro';
+import Footer from '@/components/Footer.astro';
+import StickyWhatsApp from '@/components/StickyWhatsApp.astro';
+
+const waUrl = `https://wa.me/56933301114?text=${encodeURIComponent('Hola Exportandes, quiero vender material en Los Angeles.')}`;
+
+const localSchema = {
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  "name": "Exportandes - Venta de Chatarra en Los Angeles",
+  "description": "Compra de chatarra de cobre, aluminio y metales en Los Angeles. Provincia interior del Biobio. Retiro desde 500 kg.",
+  "image": "/images/og-default.jpg",
+  "address": { "@type": "PostalAddress", "addressLocality": "Los Angeles", "addressRegion": "Biobio", "addressCountry": "CL" },
+  "telephone": "+56933301114",
+  "url": "https://exportandes.cl/zona/los-angeles",
+  "openingHours": "Mo-Fr 08:00-18:00",
+  "areaServed": { "@type": "City", "name": "Los Angeles", "containedInPlace": { "@type": "AdministrativeArea", "name": "Provincia de Biobio" } }
+};
+
+const localFaq = [
+  { question: 'Cual es el minimo para retiro en Los Angeles?', answer: 'En Los Angeles, capital provincial del Biobio interior, el retiro es desde 500 kg. La distancia desde Concepcion implica mayor logistica; con ese minimo garantizamos precios competitivos y retiro sin cargo adicional.' },
+  { question: 'Con que frecuencia hacen rutas a Los Angeles?', answer: 'Coordinamos rutas segun demanda. Generalmente programamos 1-2 visitas semanales cuando hay volumenes confirmados. Escribenos por WhatsApp con tu material y cantidad; te indicamos la proxima fecha disponible.' },
+  { question: 'Cubren sectores agricolas y forestales de la provincia?', answer: 'Si. Cubrimos Los Angeles ciudad y zonas aledanas. Para sectores mas alejados (forestal, agricola) evaluamos caso a caso segun volumen. Para volumenes industriales de empresas forestales o agricolas, ofrecemos condiciones especiales.' },
+];
+---
+
+<Layout
+  title="Vender Chatarra en Los Angeles | Retiro desde 500 kg | Exportandes"
+  description="Vende chatarra de cobre, aluminio y metales en Los Angeles. Provincia Biobio interior. Retiro gratuito desde 500 kg. Pago inmediato."
+  keywords="vender chatarra Los Angeles, compra metales Biobio interior, retiro chatarra provincia Biobio, precio cobre Los Angeles"
+  schema={localSchema}
+  canonical="https://exportandes.cl/zona/los-angeles"
+>
+  <Topbar />
+  <Navbar />
+
+  <main id="main-content">
+    <Hero
+      title={`Vender Chatarra en <span class="text-accent">Los Angeles</span>`}
+      subtitle="Provincia interior del Biobio. Retiro desde 500 kg. Cobertura para empresas forestales, agricolas y particulares. Coordinacion por WhatsApp."
+      small
+      cta={{ label: 'Vender ahora', href: waUrl }}
+    />
+
+    <!-- Local info section -->
+    <section class="section bg-white">
+      <div class="container-x max-w-4xl">
+        <p class="label">Provincia Biobio interior</p>
+        <h2 class="text-2xl lg:text-3xl font-display font-bold text-base mb-6">Los Angeles: capital provincial</h2>
+        <div class="prose prose-base text-base-light space-y-4">
+          <p>Los Angeles es la capital de la provincia del Biobio y nucleo de actividad forestal, agricola y de servicios. Por la distancia desde Concepcion aplicamos <strong class="text-base">retiro desde 500 kg</strong>, optimizando rutas para ofrecer el mejor precio.</p>
+          <p>Trabajamos con empresas forestales, agricolas, talleres y particulares de la ciudad y sectores aledanos. Coordinamos visitas periodicas; escribenos con tu volumen para planificar la proxima ruta.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- PriceTable section -->
+    <section class="section bg-neutral">
+      <div class="container-x">
+        <p class="label">Precios vigentes</p>
+        <h2 class="text-2xl lg:text-3xl font-display font-bold text-base mb-8">Cotizacion por material</h2>
+        <PriceTable />
+        <p class="mt-4 text-xs text-base-light">* Precios referenciales. Validos para Los Angeles y provincia Biobio interior.</p>
+      </div>
+    </section>
+
+    <!-- CTA to vender -->
+    <section class="section bg-white">
+      <div class="container-x">
+        <div class="card max-w-2xl mx-auto text-center">
+          <h2 class="text-xl font-display font-bold text-base mb-3">Vende en Los Angeles desde 500 kg</h2>
+          <p class="text-base-light text-sm mb-6">Escribenos con tu material y volumen. Te indicamos la proxima fecha de retiro disponible.</p>
+          <a href={waUrl} target="_blank" rel="noopener" class="btn-whatsapp">
+            Vender material en Los Angeles
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <FAQ items={localFaq} />
+  </main>
+
+  <Footer />
+  <StickyWhatsApp />
+</Layout>

@@ -1,0 +1,91 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import Topbar from '@/components/Topbar.astro';
+import Navbar from '@/components/Navbar.astro';
+import Hero from '@/components/Hero.astro';
+import PriceTable from '@/components/PriceTable.astro';
+import FAQ from '@/components/FAQ.astro';
+import Footer from '@/components/Footer.astro';
+import StickyWhatsApp from '@/components/StickyWhatsApp.astro';
+
+const waUrl = `https://wa.me/56933301114?text=${encodeURIComponent('Hola Exportandes, quiero vender material en San Pedro de la Paz.')}`;
+
+const localSchema = {
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  "name": "Exportandes - Venta de Chatarra en San Pedro de la Paz",
+  "description": "Compra de chatarra de cobre, aluminio y metales en San Pedro de la Paz. Sector residencial y zonas aledanas. Retiro desde 200 kg.",
+  "image": "/images/og-default.jpg",
+  "address": { "@type": "PostalAddress", "addressLocality": "San Pedro de la Paz", "addressRegion": "Biobio", "addressCountry": "CL" },
+  "telephone": "+56933301114",
+  "url": "https://exportandes.cl/zona/san-pedro-de-la-paz",
+  "openingHours": "Mo-Fr 08:00-18:00",
+  "areaServed": { "@type": "City", "name": "San Pedro de la Paz", "containedInPlace": { "@type": "AdministrativeArea", "name": "Region del Biobio" } }
+};
+
+const localFaq = [
+  { question: 'Hay minimo de kilos para retiro en San Pedro de la Paz?', answer: 'Si. En San Pedro de la Paz el retiro es desde 200 kg. Es una comuna principalmente residencial; si tienes menos cantidad, puedes llevar tu material a nuestra bodega en Concepcion (Av. Pedro de Valdivia 733) sin minimo.' },
+  { question: 'Cubren Michaihue, Boca Sur y Lomas Coloradas?', answer: 'Si. Cubrimos todo San Pedro: Michaihue, Boca Sur, Lomas Coloradas, Lagunillas y sectores aledanos. El minimo de 200 kg aplica en toda la comuna. Coordinamos fecha y horario segun conveniencia.' },
+  { question: 'Cual es el horario de retiros en San Pedro?', answer: 'Operamos de lunes a viernes de 08:00 a 18:00. La coordinacion se hace por WhatsApp; confirmamos dia y ventana horaria segun disponibilidad de camion y ruta.' },
+];
+---
+
+<Layout
+  title="Vender Chatarra en San Pedro de la Paz | Retiro desde 200 kg | Exportandes"
+  description="Vende chatarra de cobre, aluminio y metales en San Pedro de la Paz. Cobertura Michaihue, Boca Sur, Lomas Coloradas. Retiro desde 200 kg."
+  keywords="vender chatarra San Pedro de la Paz, compra metales Michaihue, retiro chatarra Boca Sur, precio aluminio Lomas Coloradas"
+  schema={localSchema}
+  canonical="https://exportandes.cl/zona/san-pedro-de-la-paz"
+>
+  <Topbar />
+  <Navbar />
+
+  <main id="main-content">
+    <Hero
+      title={`Vender Chatarra en <span class="text-accent">San Pedro de la Paz</span>`}
+      subtitle="Sector residencial y areas aledanas. Retiro desde 200 kg en Michaihue, Boca Sur y Lomas Coloradas. Pago al momento."
+      small
+      cta={{ label: 'Vender ahora', href: waUrl }}
+    />
+
+    <!-- Local info section -->
+    <section class="section bg-white">
+      <div class="container-x max-w-4xl">
+        <p class="label">Sector residencial</p>
+        <h2 class="text-2xl lg:text-3xl font-display font-bold text-base mb-6">San Pedro: hogares y pequenos negocios</h2>
+        <div class="prose prose-base text-base-light space-y-4">
+          <p>San Pedro de la Paz es una comuna con perfil residencial y crecimiento habitacional. Cubrimos Michaihue, Boca Sur, Lomas Coloradas, Lagunillas y barrios adyacentes con <strong class="text-base">retiro desde 200 kg</strong>.</p>
+          <p>Si tienes menos de 200 kg, puedes acercarte a nuestra bodega en Concepcion (Av. Pedro de Valdivia 733) sin minimo. Para volumenes residenciales o de pequenas empresas, coordinamos retiros en bloque para optimizar rutas.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- PriceTable section -->
+    <section class="section bg-neutral">
+      <div class="container-x">
+        <p class="label">Precios vigentes</p>
+        <h2 class="text-2xl lg:text-3xl font-display font-bold text-base mb-8">Cotizacion por material</h2>
+        <PriceTable />
+        <p class="mt-4 text-xs text-base-light">* Precios referenciales. Validos para San Pedro de la Paz.</p>
+      </div>
+    </section>
+
+    <!-- CTA to vender -->
+    <section class="section bg-white">
+      <div class="container-x">
+        <div class="card max-w-2xl mx-auto text-center">
+          <h2 class="text-xl font-display font-bold text-base mb-3">Vende en San Pedro desde 200 kg</h2>
+          <p class="text-base-light text-sm mb-6">Escribenos con tu material y cantidad aproximada. Coordinamos retiro en Michaihue, Boca Sur y toda la comuna.</p>
+          <a href={waUrl} target="_blank" rel="noopener" class="btn-whatsapp">
+            Vender material en San Pedro de la Paz
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <FAQ items={localFaq} />
+  </main>
+
+  <Footer />
+  <StickyWhatsApp />
+</Layout>

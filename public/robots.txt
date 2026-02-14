@@ -1,4 +1,5 @@
 User-agent: *
 Allow: /
+Disallow: /api/
 
-Sitemap: https://exportandes.cl/sitemap.xml
+Sitemap: https://exportandes.cl/sitemap-index.xml

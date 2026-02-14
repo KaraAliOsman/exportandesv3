@@ -1,150 +1,53 @@
 ---
-import PriceCard from './PriceCard.astro';
+import prices from '../../data/prices.json';
 
-const metals = [
-  {
-    name: 'Cobre N°1 — Cable Pelado',
-    price: '$6.500',
-    trend: 'up' as const,
-    trendValue: '+3.1%',
-    description: 'Cable de cobre limpio, sin recubrimiento',
-    iconColor: '#F97316',
-    iconBg: 'bg-orange-500/15',
-    whatsappMessage: 'Hola, vi su web y quiero vender Cobre N°1 (cable pelado). ¿Cuál es el precio actual?',
-  },
-  {
-    name: 'Cobre N°2 — Cable con Plástico',
-    price: '$3.200',
-    trend: 'up' as const,
-    trendValue: '+1.8%',
-    description: 'Cable de cobre con recubrimiento plástico',
-    iconColor: '#EA580C',
-    iconBg: 'bg-orange-600/15',
-    whatsappMessage: 'Hola, vi su web y quiero vender Cobre N°2 (cable con plástico). ¿Cuál es el precio actual?',
-  },
-  {
-    name: 'Perfil de Aluminio',
-    price: '$1.900',
-    trend: 'up' as const,
-    trendValue: '+2.3%',
-    description: 'Perfiles de ventana, puertas y marcos',
-    iconColor: '#3B82F6',
-    iconBg: 'bg-blue-500/15',
-    whatsappMessage: 'Hola, vi su web y quiero vender Perfil de Aluminio. ¿Cuál es el precio actual?',
-  },
-  {
-    name: 'Aluminio Duro',
-    price: '$1.400',
-    trend: 'stable' as const,
-    trendValue: '0.0%',
-    description: 'Piezas de aluminio macizo, industrial',
-    iconColor: '#6366F1',
-    iconBg: 'bg-indigo-500/15',
-    whatsappMessage: 'Hola, vi su web y quiero vender Aluminio Duro. ¿Cuál es el precio actual?',
-  },
-  {
-    name: 'Latas de Aluminio',
-    price: '$900',
-    trend: 'up' as const,
-    trendValue: '+0.5%',
-    description: 'Latas de bebida compactadas o sueltas',
-    iconColor: '#22D3EE',
-    iconBg: 'bg-cyan-500/15',
-    whatsappMessage: 'Hola, vi su web y quiero vender Latas de Aluminio. ¿Cuál es el precio actual?',
-  },
-  {
-    name: 'Radiadores de Cobre',
-    price: '$3.800',
-    trend: 'stable' as const,
-    trendValue: '+0.2%',
-    description: 'Radiadores de vehículo y climatización',
-    iconColor: '#EF4444',
-    iconBg: 'bg-red-500/15',
-    whatsappMessage: 'Hola, vi su web y quiero vender Radiadores de Cobre. ¿Cuál es el precio actual?',
-  },
-  {
-    name: 'Bronce',
-    price: '$4.200',
-    trend: 'up' as const,
-    trendValue: '+1.5%',
-    description: 'Piezas de bronce, válvulas, grifería',
-    iconColor: '#F59E0B',
-    iconBg: 'bg-amber-500/15',
-    whatsappMessage: 'Hola, vi su web y quiero vender Bronce. ¿Cuál es el precio actual?',
-  },
-  {
-    name: 'Baterías (Plomo)',
-    price: '$300',
-    trend: 'down' as const,
-    trendValue: '-0.8%',
-    description: 'Baterías de auto, camión y maquinaria',
-    iconColor: '#8B5CF6',
-    iconBg: 'bg-violet-500/15',
-    whatsappMessage: 'Hola, vi su web y quiero vender Baterías. ¿Cuál es el precio actual?',
-  },
-];
-
-const schemaOffers = metals.map(m => ({
-  "@type": "Offer",
-  "name": `Compra de ${m.name.split('—')[0].trim()}`,
-  "price": m.price.replace('$', '').replace('.', ''),
-  "priceCurrency": "CLP",
-  "priceSpecification": {
-    "@type": "UnitPriceSpecification",
-    "price": m.price.replace('$', '').replace('.', ''),
-    "priceCurrency": "CLP",
-    "unitText": "kg"
-  },
-  "availability": "https://schema.org/InStock",
-  "seller": {
-    "@type": "Organization",
-    "name": "Exportandes"
-  }
-}));
+interface Props {
+  filter?: string;
+}
+const { filter } = Astro.props;
+const items = filter ? prices.filter(p => p.category === filter) : prices;
 ---
 
-<section id="precios" class="section-wrapper relative">
-  <!-- Background texture -->
-  <div class="absolute inset-0 bg-slate-dark/50"></div>
-  <div class="absolute inset-0 opacity-[0.02]" style="background-image: radial-gradient(circle at 1px 1px, rgba(255,255,255,0.15) 1px, transparent 0); background-size: 40px 40px;"></div>
-
-  <div class="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-    <!-- Section Header -->
-    <div class="text-center mb-16">
-      <span class="inline-block px-4 py-1.5 rounded-full glass text-sm text-accent-teal font-heading font-medium mb-4">
-        Actualizado diariamente
-      </span>
-      <h2 class="text-3xl sm:text-4xl lg:text-5xl font-heading font-bold text-white mb-4">
-        Lista de Precios <span class="text-gradient">Oficial</span>
-      </h2>
-      <p class="text-gray-400 text-lg max-w-2xl mx-auto">
-        Precios por kilogramo en pesos chilenos. Válidos para la Región del Bio Bio.
-        Contáctanos para volúmenes superiores a 1 tonelada.
-      </p>
-    </div>
-
-    <!-- Price Grid -->
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
-      {metals.map((metal) => (
-        <PriceCard {...metal} />
-      ))}
-    </div>
-
-    <!-- Disclaimer -->
-    <p class="text-center text-xs text-gray-600 mt-10">
-      * Los precios pueden variar según volumen, calidad y condiciones del mercado internacional. Última actualización: Febrero 2026.
-    </p>
-  </div>
-
-  <!-- Schema.org Offer Markup -->
-  <script type="application/ld+json" set:html={JSON.stringify({
-    "@context": "https://schema.org",
-    "@type": "ItemList",
-    "name": "Lista de Precios de Metales — Exportandes",
-    "itemListElement": schemaOffers.map((offer, i) => ({
-      "@type": "ListItem",
-      "position": i + 1,
-      "item": offer
-    }))
-  })} />
-</section>
+<div class="overflow-x-auto">
+  <table class="w-full text-left text-sm" role="table">
+    <thead>
+      <tr class="border-b-2 border-base/10">
+        <th class="py-3 pr-4 font-display font-semibold text-xs uppercase tracking-widest text-base-light">Material</th>
+        <th class="py-3 px-4 font-display font-semibold text-xs uppercase tracking-widest text-base-light">Precio compra</th>
+        <th class="py-3 px-4 font-display font-semibold text-xs uppercase tracking-widest text-base-light hidden sm:table-cell">Condiciones</th>
+        <th class="py-3 pl-4 font-display font-semibold text-xs uppercase tracking-widest text-base-light text-right">Accion</th>
+      </tr>
+    </thead>
+    <tbody>
+      {items.map((item) => {
+        const waMsg = encodeURIComponent(`Hola Exportandes, quiero vender ${item.name}. Favor indicar cotizacion y retiro.`);
+        return (
+          <tr class="border-b border-neutral-dark hover:bg-accent/[0.02] transition-colors">
+            <td class="py-4 pr-4">
+              <span class="font-medium text-base">{item.name}</span>
+            </td>
+            <td class="py-4 px-4">
+              <span class="font-mono font-bold text-base text-lg">${item.price.toLocaleString('es-CL')}</span>
+              <span class="text-base-light text-xs ml-1">/{item.unit.split('/')[1]}</span>
+              {item.trend === 'up' && (
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#2da77a" stroke-width="3" class="inline ml-1" aria-label="Alza"><path d="M18 15l-6-6-6 6"/></svg>
+              )}
+            </td>
+            <td class="py-4 px-4 text-base-light text-xs hidden sm:table-cell">{item.conditions}</td>
+            <td class="py-4 pl-4 text-right">
+              <a
+                href={`https://wa.me/56933301114?text=${waMsg}`}
+                target="_blank"
+                rel="noopener"
+                class="inline-flex items-center gap-1.5 text-xs font-display font-semibold text-accent hover:text-accent-hover transition-colors"
+              >
+                Vender
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+              </a>
+            </td>
+          </tr>
+        );
+      })}
+    </tbody>
+  </table>
+</div>

@@ -1,0 +1,42 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import Topbar from '@/components/Topbar.astro';
+import Navbar from '@/components/Navbar.astro';
+import Hero from '@/components/Hero.astro';
+import VenderForm from '@/components/VenderForm.astro';
+import TrustBar from '@/components/TrustBar.astro';
+import FAQ from '@/components/FAQ.astro';
+import Footer from '@/components/Footer.astro';
+import StickyWhatsApp from '@/components/StickyWhatsApp.astro';
+
+const faq = [
+  { question: 'Es seguro vender por WhatsApp?', answer: 'Completamente. WhatsApp es solo el canal de contacto inicial. El pesaje y pago se realizan presencialmente en nuestra bodega o al momento del retiro, siempre con comprobante.' },
+  { question: 'Cuanto demoran en responder?', answer: 'Maximo 2 horas habiles. En horario de atencion (Lun-Vie 08:00-18:00) la respuesta suele ser en minutos.' },
+  { question: 'Necesito llevar el material yo?', answer: 'No necesariamente. Para +200 kg coordinamos retiro gratuito con camion. Para cantidades menores, puedes traerlo a nuestra bodega en Av. Pedro de Valdivia 733, Concepcion.' },
+  { question: 'Que pasa si mi material esta contaminado?', answer: 'Igual lo compramos, pero a un precio ajustado. Te recomendamos separar y limpiar para obtener el mejor precio. En la cotizacion te indicamos exactamente cuanto recibirias.' },
+];
+---
+
+<Layout
+  title="Vender Chatarra Ahora -- Cotizacion Inmediata por WhatsApp | Exportandes"
+  description="Vende tu chatarra de cobre, aluminio o laton en 1 minuto. Completa el formulario y te abrimos WhatsApp con cotizacion inmediata. Pago al instante."
+  keywords="vender chatarra WhatsApp, cotizar cobre Concepcion, vender aluminio rapido, compra chatarra inmediata"
+>
+  <Topbar />
+  <Navbar />
+
+  <main id="main-content">
+    <Hero
+      title='Vende tu material en <span class="text-accent">1 minuto</span>'
+      subtitle="Completa los datos, te abrimos WhatsApp con el mensaje listo. Cotizacion y retiro coordinados en el dia."
+      small
+    />
+
+    <VenderForm />
+    <TrustBar />
+    <FAQ items={faq} />
+  </main>
+
+  <Footer />
+  <StickyWhatsApp />
+</Layout>

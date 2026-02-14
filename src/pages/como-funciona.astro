@@ -1,0 +1,72 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import Topbar from '@/components/Topbar.astro';
+import Navbar from '@/components/Navbar.astro';
+import Hero from '@/components/Hero.astro';
+import ProcessSteps from '@/components/ProcessSteps.astro';
+import TrustBar from '@/components/TrustBar.astro';
+import FAQ from '@/components/FAQ.astro';
+import Footer from '@/components/Footer.astro';
+import StickyWhatsApp from '@/components/StickyWhatsApp.astro';
+
+const details = [
+  { title: 'Cotizacion transparente', text: 'Envia fotos y descripcion por WhatsApp. Nuestro equipo evalua el material y te entrega un precio firme en menos de 2 horas. Sin compromiso: si el precio no te convence, no hay obligacion.' },
+  { title: 'Pesaje certificado', text: 'Utilizamos bascula industrial certificada y calibrada. El pesaje se realiza frente a ti, ya sea en nuestra bodega o al momento del retiro. Cada operacion genera un comprobante detallado.' },
+  { title: 'Logistica propia', text: 'Para volumenes desde 200 kg coordinamos retiro con camion propio. Cobertura en toda la Region del Biobio: Concepcion, Talcahuano, San Pedro, Chiguayante, Coronel, Los Angeles y mas.' },
+  { title: 'Pago inmediato', text: 'Una vez confirmado el peso y calidad, el pago es instantaneo. Transferencia bancaria o efectivo. Sin cheques a fecha, sin retenciones, sin sorpresas.' },
+  { title: 'Exportacion directa', text: 'Tu material se embala, containeriza y exporta directamente a fundiciones internacionales en Turquia y Europa. Esta conexion directa es lo que nos permite pagar precios superiores al mercado local.' },
+];
+
+const faq = [
+  { question: 'Cuanto tiempo demora todo el proceso?', answer: 'Desde el primer contacto hasta el pago puede ser el mismo dia para entregas en bodega. Para retiros coordinados, normalmente 24-48 horas.' },
+  { question: 'Que garantia tengo del pesaje?', answer: 'Nuestra bascula esta certificada por el organismo regulador. Puedes verificar el peso en el momento. Emitimos comprobante de cada transaccion.' },
+  { question: 'Trabajan con empresas y demoliciones?', answer: 'Si. Atendemos desde recicladores independientes hasta empresas de demolicion y plantas industriales. Para contratos recurrentes ofrecemos condiciones especiales.' },
+];
+---
+
+<Layout
+  title="Como Funciona -- Proceso de Venta de Chatarra | Exportandes"
+  description="Conoce el proceso de venta de chatarra con Exportandes: cotizacion, retiro, pesaje certificado y pago inmediato. Transparente de principio a fin."
+  keywords="como vender chatarra, proceso compra metales, pesaje certificado chatarra, retiro chatarra domicilio Concepcion"
+>
+  <Topbar />
+  <Navbar />
+
+  <main id="main-content">
+    <Hero
+      title='Como <span class="text-accent">funciona</span>'
+      subtitle="Vender tu chatarra con Exportandes es simple, transparente y rapido. Aqui te explicamos cada paso del proceso."
+      small
+    />
+
+    <ProcessSteps />
+
+    <!-- Detailed explanation -->
+    <section class="section bg-white">
+      <div class="container-x max-w-4xl">
+        <p class="label">Detalle del proceso</p>
+        <h2 class="text-3xl lg:text-4xl mb-12">Transparencia en cada etapa</h2>
+
+        <div class="space-y-10">
+          {details.map((d, i) => (
+            <div class="flex gap-6">
+              <div class="shrink-0 w-10 h-10 rounded-full bg-accent/10 flex items-center justify-center font-mono font-bold text-accent text-sm">
+                {i + 1}
+              </div>
+              <div>
+                <h3 class="font-display font-bold text-base text-lg mb-2">{d.title}</h3>
+                <p class="text-base-light leading-relaxed">{d.text}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <TrustBar />
+    <FAQ items={faq} />
+  </main>
+
+  <Footer />
+  <StickyWhatsApp />
+</Layout>

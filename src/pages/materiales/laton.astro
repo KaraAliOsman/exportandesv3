@@ -1,0 +1,113 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import Topbar from '@/components/Topbar.astro';
+import Navbar from '@/components/Navbar.astro';
+import Hero from '@/components/Hero.astro';
+import PriceTable from '@/components/PriceTable.astro';
+import FAQ from '@/components/FAQ.astro';
+import Footer from '@/components/Footer.astro';
+import StickyWhatsApp from '@/components/StickyWhatsApp.astro';
+import prices from '../../../data/prices.json';
+
+const filteredPrices = prices.filter(p => p.category === 'laton');
+const waMessage = encodeURIComponent('Hola Exportandes, quiero vender latón o bronce. Favor indicar cotización y retiro.');
+const waUrl = `https://wa.me/56933301114?text=${waMessage}`;
+
+const productSchema = {
+  "@context": "https://schema.org",
+  "@type": "Product",
+  "name": "Compra de Latón y Bronce — Exportandes",
+  "description": "Compra de latón y bronce reciclado al mejor precio en Concepción, Chile. Grifería, válvulas, piezas industriales y más.",
+  "brand": { "@type": "Brand", "name": "Exportandes" },
+  "offers": filteredPrices.map(p => ({
+    "@type": "Offer",
+    "name": `Compra de ${p.name}`,
+    "price": p.price,
+    "priceCurrency": "CLP",
+    "priceSpecification": {
+      "@type": "UnitPriceSpecification",
+      "price": p.price,
+      "priceCurrency": "CLP",
+      "unitText": "kg"
+    },
+    "availability": "https://schema.org/InStock"
+  }))
+};
+
+const faq = [
+  { question: '¿Cuál es la diferencia entre latón y bronce?', answer: 'El bronce suele cotizar más alto que el latón por su mayor contenido de cobre. Ambos son aleaciones de cobre: el latón lleva zinc, el bronce estaño. Aceptamos ambos en grifería, válvulas, engranajes, campanas y piezas industriales.' },
+  { question: '¿Qué tipos de latón y bronce compran?', answer: 'Grifería, válvulas, llaves, piezas de plomería, campanas, engranajes, accesorios navales e industriales. Separa el latón y bronce de otros metales (fierro, aluminio) para obtener el mejor precio.' },
+  { question: '¿Aceptan piezas contaminadas?', answer: 'Sí, pero el material limpio paga más. Retira plásticos, gomas y piezas de fierro adheridas antes de vender. Material separado y sin contaminantes recibe el precio óptimo.' },
+  { question: '¿Cómo saber si es latón o bronce?', answer: 'El bronce suele tener un tono más rojizo; el latón más amarillento. Si tienes dudas, envía fotos por WhatsApp y te indicamos el tipo y precio estimado.' }
+];
+
+const tips = [
+  'Separa el latón y bronce de otros metales (fierro, aluminio).',
+  'Limpia contaminantes: plásticos, gomas, piezas adheridas.'
+];
+---
+
+<Layout
+  title="Compra de Laton y Bronce al Mejor Precio | Exportandes Concepcion"
+  description="Vende tu latón y bronce al mejor precio en Concepción. Grifería, válvulas, piezas industriales. Pago inmediato. WhatsApp ahora."
+  keywords="precio laton Chile, vender bronce Concepcion, compra laton kg, reciclaje laton Bio Bio"
+  schema={productSchema}
+>
+  <Topbar />
+  <Navbar />
+
+  <main id="main-content">
+    <Hero
+      title='Compra de <span class="text-accent">Latón</span> y Bronce'
+      subtitle="Grifería, válvulas, piezas industriales. Precios competitivos para latón y bronce en la Región del Bio Bío."
+      small
+      cta={{ label: 'Vender latón/bronce', href: waUrl }}
+    />
+
+    <section class="section bg-white">
+      <div class="container-x">
+        <PriceTable filter="laton" />
+        <p class="mt-4 text-xs text-base-light">* Precios referenciales. Varían según volumen, calidad y condiciones de mercado.</p>
+      </div>
+    </section>
+
+    <section class="section bg-neutral">
+      <div class="container-x max-w-3xl">
+        <p class="label">Información</p>
+        <h2 class="text-3xl lg:text-4xl mb-6">Todo sobre latón y bronce</h2>
+        <div class="prose prose-sm max-w-none text-base-light leading-relaxed space-y-4">
+          <p>El <strong>latón</strong> y el <strong>bronce</strong> son aleaciones de cobre muy demandadas en el reciclaje. En <strong>Concepción</strong>, Exportandes compra grifería, válvulas, piezas industriales y más al mejor precio.</p>
+          <h3 class="text-base font-display font-bold text-base mt-6">Tipos que aceptamos</h3>
+          <p>Latón (grifería, llaves, accesorios de plomería) y bronce (campanas, engranajes, piezas navales e industriales). El bronce cotiza generalmente más alto por su mayor contenido de cobre.</p>
+          <h3 class="text-base font-display font-bold text-base mt-6">Cómo prepararlo</h3>
+          <p>Separa de fierro, aluminio y otros metales. Retira plásticos, gomas y contaminantes. Material limpio y clasificado paga el mejor precio.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section bg-white">
+      <div class="container-x max-w-3xl">
+        <p class="label">Consejos</p>
+        <h2 class="text-3xl lg:text-4xl mb-8">Cómo mejorar tu precio</h2>
+        <ul class="space-y-3">
+          {tips.map((tip) => (
+            <li class="flex gap-3 items-start">
+              <span class="shrink-0 w-6 h-6 rounded-full bg-accent/10 flex items-center justify-center">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#0b5cff" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg>
+              </span>
+              <span class="text-base-light">{tip}</span>
+            </li>
+          ))}
+        </ul>
+        <a href={waUrl} target="_blank" rel="noopener" class="btn-primary mt-8">
+          Cotizar mi latón/bronce
+        </a>
+      </div>
+    </section>
+
+    <FAQ items={faq} />
+  </main>
+
+  <Footer />
+  <StickyWhatsApp />
+</Layout>

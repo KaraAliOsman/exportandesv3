@@ -1,0 +1,29 @@
+---
+const steps = [
+  { num: '01', title: 'Cotiza', text: 'Envia fotos y datos por WhatsApp. Te respondemos con precio firme en menos de 2 horas.' },
+  { num: '02', title: 'Agenda retiro', text: 'Coordinamos camion para recoger tu material. Biobio completo, sin costo minimo.' },
+  { num: '03', title: 'Inspeccion y pesaje', text: 'Pesaje con bascula certificada a la vista. Verificas cada kilo antes de cerrar.' },
+  { num: '04', title: 'Pago y exportacion', text: 'Transferencia inmediata o efectivo. Tu material viaja directo a fundiciones internacionales.' },
+];
+---
+
+<section class="section bg-neutral">
+  <div class="container-x">
+    <p class="label">Proceso</p>
+    <h2 class="text-3xl lg:text-4xl mb-14">Como funciona</h2>
+
+    <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
+      {steps.map((s, i) => (
+        <div class="relative">
+          {/* Connector line */}
+          {i < steps.length - 1 && (
+            <div class="hidden lg:block absolute top-6 left-full w-full h-px bg-neutral-dark -translate-x-4" aria-hidden="true"></div>
+          )}
+          <div class="font-mono text-4xl font-bold text-accent/15 mb-3">{s.num}</div>
+          <h3 class="font-display font-bold text-base text-lg mb-2">{s.title}</h3>
+          <p class="text-sm text-base-light leading-relaxed">{s.text}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

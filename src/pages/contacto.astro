@@ -1,40 +1,90 @@
 ---
 import Layout from '@/layouts/Layout.astro';
+import Topbar from '@/components/Topbar.astro';
 import Navbar from '@/components/Navbar.astro';
-import ContactSection from '@/components/ContactSection.astro';
+import Hero from '@/components/Hero.astro';
+import VenderForm from '@/components/VenderForm.astro';
 import Footer from '@/components/Footer.astro';
+import StickyWhatsApp from '@/components/StickyWhatsApp.astro';
+
+const waUrl = 'https://wa.me/56933301114';
 ---
 
 <Layout
-  title="Contacto — Exportandes | Cotiza tu Chatarra en Concepción"
-  description="Contacta a Exportandes por WhatsApp para cotizar tu chatarra al mejor precio. Estamos en Av. Pedro de Valdivia 733, Concepción. Respuesta inmediata."
-  keywords="contacto exportandes, vender chatarra concepción, whatsapp compra cobre, cotizar aluminio bio bio, reciclaje metales contacto"
+  title="Contacto -- Exportandes | Cotiza tu Chatarra en Concepcion"
+  description="Contacta a Exportandes por WhatsApp para cotizar tu chatarra. Av. Pedro de Valdivia 733, Concepcion. Respuesta inmediata."
+  keywords="contacto exportandes, vender chatarra Concepcion, WhatsApp compra cobre, cotizar aluminio Biobio"
 >
+  <Topbar />
   <Navbar />
 
-  <main>
-    <!-- Page Header -->
-    <section class="relative pt-32 pb-12 overflow-hidden">
-      <div class="absolute inset-0 bg-gradient-industrial"></div>
-      <div class="absolute top-0 right-0 w-96 h-96 bg-accent-teal/5 rounded-full blur-3xl"></div>
-      <div class="absolute inset-0 opacity-[0.02]" style="background-image: linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px); background-size: 50px 50px;"></div>
+  <main id="main-content">
+    <Hero
+      title='<span class="text-accent">Contacto</span>'
+      subtitle="Escribenos por WhatsApp o visitanos en nuestra bodega. Respuesta garantizada en menos de 2 horas habiles."
+      small
+    />
 
-      <div class="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <span class="inline-block px-4 py-1.5 rounded-full glass text-sm text-accent-teal font-heading font-medium mb-6">
-          Estamos para ti
-        </span>
-        <h1 class="text-4xl sm:text-5xl lg:text-6xl font-heading font-bold text-white mb-6">
-          <span class="text-gradient">Contacto</span>
-        </h1>
-        <p class="text-xl text-gray-400 max-w-2xl">
-          ¿Tienes material para vender? Escríbenos por WhatsApp o visita nuestra bodega.
-          Respuesta garantizada en minutos durante horario laboral.
-        </p>
+    <!-- Contact info + Map -->
+    <section class="section bg-white">
+      <div class="container-x">
+        <div class="grid lg:grid-cols-3 gap-8 mb-12">
+          <a href={waUrl} target="_blank" rel="noopener" class="card group text-center">
+            <div class="w-12 h-12 mx-auto rounded-lg bg-[#25D366]/10 flex items-center justify-center mb-3">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="#25D366"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a1.04 1.04 0 00-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+            </div>
+            <h3 class="font-display font-bold text-base group-hover:text-[#25D366] transition-colors">WhatsApp</h3>
+            <p class="text-sm text-base-light mt-1">+56 9 3330 1114</p>
+          </a>
+
+          <div class="card text-center">
+            <div class="w-12 h-12 mx-auto rounded-lg bg-accent/10 flex items-center justify-center mb-3">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#0b5cff" stroke-width="1.5"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0116 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            </div>
+            <h3 class="font-display font-bold text-base">Direccion</h3>
+            <p class="text-sm text-base-light mt-1">Av. Pedro de Valdivia 733<br>Concepcion, Biobio</p>
+          </div>
+
+          <div class="card text-center">
+            <div class="w-12 h-12 mx-auto rounded-lg bg-trust/10 flex items-center justify-center mb-3">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#2da77a" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+            </div>
+            <h3 class="font-display font-bold text-base">Horario</h3>
+            <p class="text-sm text-base-light mt-1">Lunes a Viernes<br>08:00 - 18:00</p>
+          </div>
+        </div>
+
+        <!-- Map -->
+        <div class="rounded-lg overflow-hidden border border-neutral-dark h-[350px]">
+          <iframe
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3179!2d-73.0503!3d-36.827!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMzbCsDQ5JzM3LjIiUyA3M8KwMDMnMDEuMSJX!5e0!3m2!1ses!2scl!4v1700000000000"
+            width="100%"
+            height="100%"
+            style="border:0;"
+            allowfullscreen=""
+            loading="lazy"
+            title="Ubicacion de Exportandes en Concepcion"
+          ></iframe>
+        </div>
       </div>
     </section>
 
-    <ContactSection />
+    <VenderForm />
+
+    <!-- Legal -->
+    <section class="section bg-neutral" id="privacidad">
+      <div class="container-x max-w-3xl">
+        <h2 class="text-2xl font-display font-bold text-base mb-6" id="terminos">Politica de Privacidad y Terminos</h2>
+        <div class="prose prose-sm max-w-none text-base-light leading-relaxed space-y-4">
+          <p>Exportandes se compromete a proteger la privacidad de sus usuarios. Los datos recopilados a traves de formularios (nombre, telefono, comuna, tipo de material) se utilizan exclusivamente para gestionar la cotizacion y retiro de material.</p>
+          <p>No compartimos datos personales con terceros, salvo los estrictamente necesarios para la operacion logistica (transporte, pesaje).</p>
+          <p>Las fotografias enviadas por los usuarios para cotizacion se almacenan temporalmente y se eliminan una vez completada la transaccion o tras 30 dias, lo que ocurra primero.</p>
+          <p>Al utilizar nuestros servicios, aceptas estos terminos. Para consultas sobre privacidad, contacta a contacto@exportandes.cl.</p>
+        </div>
+      </div>
+    </section>
   </main>
 
   <Footer />
+  <StickyWhatsApp />
 </Layout>
